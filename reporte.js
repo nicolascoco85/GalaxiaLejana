@@ -10,6 +10,8 @@ Galaxia.set("Ferengi", Ferengi);
 Galaxia.set("Vulcanos", Vulcanos);
 Galaxia.set("Betasoides",Betasoides);
 
+
+
 for (let dia=1; dia<=3600; dia++ ) {
     for (var planeta of Galaxia.values()) {
         console.log("dia:",dia);
