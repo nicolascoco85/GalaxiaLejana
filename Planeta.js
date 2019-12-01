@@ -1,10 +1,11 @@
 class Planeta
 {
-    constructor(radio, velocidad,x,y){
+
+    constructor(radio, velocidad){
         this.radio=radio;
         this.velocidad=velocidad;
-        this.x=x;
-        this.y=y;
+        this.x=radio;
+        this.y=0;
         this.angulo=0;
     }
 
@@ -12,12 +13,16 @@ class Planeta
         return this.x;
     }
 
-    ObtenerPosicionY(){
+    obtenerPosicionY(){
         return this.y;
     }
 
     obtenerAngulo(){
         return this.angulo;
+    }
+
+    obtenerRadio(){
+        return this.radio;
     }
 
     definirPosicion(x,y){
