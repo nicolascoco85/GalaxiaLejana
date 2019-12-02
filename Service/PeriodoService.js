@@ -7,6 +7,20 @@ function   estanAlineadosConElSol(planeta, otroPlaneta){
 
     }
 
+function estaSobreElEjeY(primerPlaneta, segundoPlaneta, tercerPlaneta) {
+    return primerPlaneta.obtenerPosicionX()==segundoPlaneta.obtenerPosicionX() && segundoPlaneta.obtenerPosicionX()==tercerPlaneta.obtenerPosicionX() && tercerPlaneta.obtenerPosicionX()==0;
+}
+
+function estaSobreElEjeX(primerPlaneta, segundoPlaneta, tercerPlaneta){
+    return primerPlaneta.obtenerPosicionY()==segundoPlaneta.obtenerPosicionY() && segundoPlaneta.obtenerPosicionY()==tercerPlaneta.obtenerPosicionY() && tercerPlaneta.obtenerPosicionY()==0;
+}
+
+
+function estanSobreUnEjeCartesiano(primerPlaneta, segundoPlaneta, tercerPlaneta){
+      return estaSobreElEjeX(primerPlaneta, segundoPlaneta, tercerPlaneta) ||estaSobreElEjeY(primerPlaneta, segundoPlaneta, tercerPlaneta);
+   }
+
+
 function    hayTresPlanetasAlineadosConElSol(PrimerPlaneta, SegundoPlaneta, TercerPlaneta){
         let resultPrimerPlanetaConSegundoPlaneta = estanAlineadosConElSol(PrimerPlaneta,SegundoPlaneta);
         let resultSegundoPlanetaContercerPlaneta = estanAlineadosConElSol(SegundoPlaneta,TercerPlaneta);
@@ -22,15 +36,21 @@ function    estanAlineadoEntreSiSinElSol(PrimerPlaneta, SegundoPlaneta, TercerPl
         let xEnTercerPlaneta= TercerPlaneta.obtenerPosicionX();
         let yEnTercerPlaneta= TercerPlaneta.obtenerPosicionY();
 
+        if (estanSobreUnEjeCartesiano(PrimerPlaneta, SegundoPlaneta, TercerPlaneta)){
+            return false;
+        }
+
         if ((xEnPlaneta-xEnTercerPlaneta)!=0 &&(xEnOtroPlaneta-xEnTercerPlaneta)!=0){
             let mPlaneta= (yEnPlaneta-yEnTercerPlaneta)/(xEnPlaneta-xEnTercerPlaneta);
             let mOtroPlaneta= (yEnOtroPlaneta-yEnTercerPlaneta)/(xEnOtroPlaneta-xEnTercerPlaneta);
-            
-                return mPlaneta==mOtroPlaneta;
+            let terminoIndependiente = yEnTercerPlaneta - mOtroPlaneta*xEnTercerPlaneta;
+
+
+                return mPlaneta==mOtroPlaneta && terminoIndependiente!=0 ;
         }
-        else{
-            return true;
-        }
+
+        return true;
+
 }
 
 
