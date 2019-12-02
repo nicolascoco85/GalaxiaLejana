@@ -1,7 +1,4 @@
-class PeriodoService{
-    constructor(){}
-
-    estanAlineadosConElSol(planeta, otroPlaneta){
+function   estanAlineadosConElSol(planeta, otroPlaneta){
 
         let result = Math.abs(Math.abs( planeta.obtenerAngulo()) - Math.abs(otroPlaneta.obtenerAngulo()));
 
@@ -10,13 +7,13 @@ class PeriodoService{
 
     }
 
-    hayTresPlanetasAlineadosConElSol(PrimerPlaneta, SegundoPlaneta, TercerPlaneta){
-        let resultPrimerPlanetaConSegundoPlaneta = this.estanAlineadosConElSol(PrimerPlaneta,SegundoPlaneta);
-        let resultSegundoPlanetaContercerPlaneta = this.estanAlineadosConElSol(SegundoPlaneta,TercerPlaneta);
+function    hayTresPlanetasAlineadosConElSol(PrimerPlaneta, SegundoPlaneta, TercerPlaneta){
+        let resultPrimerPlanetaConSegundoPlaneta = estanAlineadosConElSol(PrimerPlaneta,SegundoPlaneta);
+        let resultSegundoPlanetaContercerPlaneta = estanAlineadosConElSol(SegundoPlaneta,TercerPlaneta);
         return resultPrimerPlanetaConSegundoPlaneta && resultSegundoPlanetaContercerPlaneta;
     }
 
-    estanAlineadoEntreSiSinElSol(PrimerPlaneta, SegundoPlaneta, TercerPlaneta){
+function    estanAlineadoEntreSiSinElSol(PrimerPlaneta, SegundoPlaneta, TercerPlaneta){
         
         let xEnPlaneta= PrimerPlaneta.obtenerPosicionX();
         let yEnPlaneta= PrimerPlaneta.obtenerPosicionY();
@@ -34,8 +31,43 @@ class PeriodoService{
         else{
             return true;
         }
-    }
 }
 
-module.exports = PeriodoService;
+
+
+module.exports = {
+
+    existePeriodoDeSequia : function (primerPlaneta, segundoPlaneta, tercerPlaneta) {
+
+        return hayTresPlanetasAlineadosConElSol(primerPlaneta,segundoPlaneta,tercerPlaneta);
+
+    },
+
+    existenCondicionesOptimasDePresionYTemperatura :function (primerPlaneta, segundoPlaneta, tercerPlaneta) {
+        return estanAlineadoEntreSiSinElSol(primerPlaneta,segundoPlaneta,tercerPlaneta);
+
+    }
+
+
+
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

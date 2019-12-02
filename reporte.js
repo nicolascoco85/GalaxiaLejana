@@ -1,4 +1,6 @@
 const Planeta = require('./Planeta');
+const PeriodoService = require('./Service/PeriodoService');
+let service = new PeriodoService();
 
 
 let Ferengi = new Planeta (500,-1);
@@ -18,4 +20,5 @@ for (let dia=1; dia<=3600; dia++ ) {
         planeta.calcularPosicion(dia);
         console.log("X:", planeta.obtenerPosicionX(), "//", "Y:", planeta.obtenerPosicionY(), "//W", planeta.obtenerAngulo().toString()+"°Grados");
     }
+    console.log("Hay sequia:",service.estanAlineadosConElSol(Galaxia.get("Ferengi"),Galaxia.get("Vulcanos"),Galaxia.get("Betasoides")));
 }
