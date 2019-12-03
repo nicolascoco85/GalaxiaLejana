@@ -315,6 +315,24 @@ describe('Determinacion del Periodo en la Galaxia Lejana', function() {
             assert.isFalse(Service.existenCondicionesOptimasDePresionYTemperatura(planeta,otroPlaneta,tercerPlaneta));
         });
 
+        it('3 planetas: alineados a X=0   devuelve que no existen condiones optimas ', function () {
+
+            //Setup
+            let {planeta, otroPlaneta, tercerPlaneta} = setUpPlanetas();
+
+            //Posicionamiento dado
+            planeta.definirPosicion(0,1.73);
+            otroPlaneta.definirPosicion(0,0);
+            tercerPlaneta.definirPosicion(0,-1.73);
+
+            //Defino el angulo
+            planeta.definirAngulo(90);
+            otroPlaneta.definirAngulo(90);
+            tercerPlaneta.definirAngulo(270);
+
+            assert.isFalse(Service.existenCondicionesOptimasDePresionYTemperatura(planeta,otroPlaneta,tercerPlaneta));
+        });
+
 
    });
 });
