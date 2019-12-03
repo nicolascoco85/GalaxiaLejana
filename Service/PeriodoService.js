@@ -39,7 +39,7 @@ function    estanAlineadoEntreSiSinElSol(PrimerPlaneta, SegundoPlaneta, TercerPl
         if (estanSobreUnEjeCartesiano(PrimerPlaneta, SegundoPlaneta, TercerPlaneta)){
             return false;
         }
-
+        // Casos donde existe pendiente o recta horizontal
         if ((xEnPlaneta-xEnTercerPlaneta)!=0 &&(xEnOtroPlaneta-xEnTercerPlaneta)!=0){
             let mPlaneta= (yEnPlaneta-yEnTercerPlaneta)/(xEnPlaneta-xEnTercerPlaneta);
             let mOtroPlaneta= (yEnOtroPlaneta-yEnTercerPlaneta)/(xEnOtroPlaneta-xEnTercerPlaneta);
@@ -48,7 +48,7 @@ function    estanAlineadoEntreSiSinElSol(PrimerPlaneta, SegundoPlaneta, TercerPl
 
                 return mPlaneta==mOtroPlaneta && terminoIndependiente!=0 ;
         }
-
+        // Caso para alineados verticalmente sin pasar por el (0.0).
         return true;
 
 }

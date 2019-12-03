@@ -261,6 +261,60 @@ describe('Determinacion del Periodo en la Galaxia Lejana', function() {
             assert.isTrue(Service.existenCondicionesOptimasDePresionYTemperatura(planeta,otroPlaneta,tercerPlaneta));
         });
 
+        it('3 planetas: alineados a x=1   devuelve que  existen condiones optimas ', function () {
+
+            //Setup
+            let {planeta, otroPlaneta, tercerPlaneta} = setUpPlanetas();
+
+            //Posicionamiento dado
+            planeta.definirPosicion(1,1.73);
+            otroPlaneta.definirPosicion(1,0);
+            tercerPlaneta.definirPosicion(1,-1.73);
+
+            //Defino el angulo
+            planeta.definirAngulo(60);
+            otroPlaneta.definirAngulo(0);
+            tercerPlaneta.definirAngulo(315);
+
+            assert.isTrue(Service.existenCondicionesOptimasDePresionYTemperatura(planeta,otroPlaneta,tercerPlaneta));
+        });
+
+        it('3 planetas: alineados a Y=1   devuelve que  existen condiones optimas ', function () {
+
+            //Setup
+            let {planeta, otroPlaneta, tercerPlaneta} = setUpPlanetas();
+
+            //Posicionamiento dado
+            planeta.definirPosicion(1.73,1);
+            otroPlaneta.definirPosicion(0,1);
+            tercerPlaneta.definirPosicion(-1.73,1);
+
+            //Defino el angulo
+            planeta.definirAngulo(120);
+            otroPlaneta.definirAngulo(0);
+            tercerPlaneta.definirAngulo(60);
+
+            assert.isTrue(Service.existenCondicionesOptimasDePresionYTemperatura(planeta,otroPlaneta,tercerPlaneta));
+        });
+
+        it('3 planetas: alineados a Y=0   devuelve que no existen condiones optimas ', function () {
+
+            //Setup
+            let {planeta, otroPlaneta, tercerPlaneta} = setUpPlanetas();
+
+            //Posicionamiento dado
+            planeta.definirPosicion(1.73,0);
+            otroPlaneta.definirPosicion(0,0);
+            tercerPlaneta.definirPosicion(-1.73,0);
+
+            //Defino el angulo
+            planeta.definirAngulo(0);
+            otroPlaneta.definirAngulo(0);
+            tercerPlaneta.definirAngulo(180);
+
+            assert.isFalse(Service.existenCondicionesOptimasDePresionYTemperatura(planeta,otroPlaneta,tercerPlaneta));
+        });
+
 
    });
 });
