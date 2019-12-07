@@ -333,6 +333,19 @@ describe('Determinacion del Periodo en la Galaxia Lejana', function() {
             assert.isFalse(Service.existenCondicionesOptimasDePresionYTemperatura(planeta,otroPlaneta,tercerPlaneta));
         });
 
+        it('3 planetas: forman un triangulo alrededor del sol , returna que existe Luvia', function () {
+
+            //Setup
+            let {planeta, otroPlaneta, tercerPlaneta} = setUpPlanetas();
+
+            //Posicionamiento dado
+            planeta.definirPosicion(0,2);
+            otroPlaneta.definirPosicion(2,-1);
+            tercerPlaneta.definirPosicion(-2,-1);
+
+            assert.isTrue(Service.existenLluvias(planeta,otroPlaneta,tercerPlaneta));
+        });
+
 
    });
 });

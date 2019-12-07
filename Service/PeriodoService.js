@@ -53,7 +53,37 @@ function    estanAlineadoEntreSiSinElSol(PrimerPlaneta, SegundoPlaneta, TercerPl
 
 }
 
+function calcularAreaConElSol(primerPunto, segundoPunto) {
 
+    return calcularArea(primerPunto, segundoPunto,undefined)
+
+}
+
+function calcularArea(primerPunto, segundoPunto, tercerPunto=undefined){
+
+    let  result=0;
+    if (tercerPunto!=undefined){
+        result = (segundoPunto.obtenerPosicionX()-primerPunto.obtenerPosicionX())*((tercerPunto.obtenerPosicionY()-primerPunto.obtenerPosicionY()))-
+            (tercerPunto.obtenerPosicionX()-primerPunto.obtenerPosicionX())*((segundoPunto.obtenerPosicionY()-primerPunto.obtenerPosicionY()))
+    }else{//Si el tercer planeta no esta definido, la funcion asume que son las coordenadas de sol en (0,0)
+        result = (segundoPunto.obtenerPosicionX()-primerPunto.obtenerPosicionX())*((0-primerPunto.obtenerPosicionY()))-
+            (0-primerPunto.obtenerPosicionX())*((segundoPunto.obtenerPosicionY()-primerPunto.obtenerPosicionY()))
+    }
+    return Math.abs(result)/2;
+}
+
+
+function existeTrianguloAlrededorDelSol(planeta, otroPlaneta, tercerPlaneta) {
+
+    let area1= calcularAreaConElSol(planeta,otroPlaneta);
+    let area2= calcularAreaConElSol(planeta,tercerPlaneta);
+    let area3= calcularAreaConElSol(otroPlaneta,tercerPlaneta);
+    let areaTotal = calcularArea(planeta, otroPlaneta, tercerPlaneta);
+
+    let sumaAreaParciales= area1+area2+area3;
+
+        return areaTotal==sumaAreaParciales;
+}
 
 module.exports = {
 
@@ -66,6 +96,9 @@ module.exports = {
     existenCondicionesOptimasDePresionYTemperatura :function (primerPlaneta, segundoPlaneta, tercerPlaneta) {
         return estanAlineadoEntreSiSinElSol(primerPlaneta,segundoPlaneta,tercerPlaneta);
 
+    },
+    existenLluvias: function (planeta, otroPlaneta, tercerPlaneta) {
+        return existeTrianguloAlrededorDelSol(planeta, otroPlaneta, tercerPlaneta);
     }
 
 
