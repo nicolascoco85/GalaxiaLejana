@@ -6,13 +6,20 @@ function   estanAlineadosConElSol(planeta, otroPlaneta){
         return result== 0 || result== 180;
 
     }
+function tienenMismaCoordenaX(primerPlaneta, segundoPlaneta, tercerPlaneta){
+    return primerPlaneta.obtenerPosicionX()==segundoPlaneta.obtenerPosicionX() && segundoPlaneta.obtenerPosicionX()==tercerPlaneta.obtenerPosicionX()
+}
 
 function estaSobreElEjeY(primerPlaneta, segundoPlaneta, tercerPlaneta) {
-    return primerPlaneta.obtenerPosicionX()==segundoPlaneta.obtenerPosicionX() && segundoPlaneta.obtenerPosicionX()==tercerPlaneta.obtenerPosicionX() && tercerPlaneta.obtenerPosicionX()==0;
+    return tienenMismaCoordenaX(primerPlaneta,segundoPlaneta,tercerPlaneta) && tercerPlaneta.obtenerPosicionX()==0;
+}
+
+function tienenMismaCoordenaY(primerPlaneta, segundoPlaneta, tercerPlaneta){
+    return primerPlaneta.obtenerPosicionY()==segundoPlaneta.obtenerPosicionY() && segundoPlaneta.obtenerPosicionY()==tercerPlaneta.obtenerPosicionY()
 }
 
 function estaSobreElEjeX(primerPlaneta, segundoPlaneta, tercerPlaneta){
-    return primerPlaneta.obtenerPosicionY()==segundoPlaneta.obtenerPosicionY() && segundoPlaneta.obtenerPosicionY()==tercerPlaneta.obtenerPosicionY() && tercerPlaneta.obtenerPosicionY()==0;
+    return tienenMismaCoordenaY(primerPlaneta, segundoPlaneta, tercerPlaneta)&& tercerPlaneta.obtenerPosicionY()==0;
 }
 
 
@@ -85,6 +92,10 @@ function existeTrianguloAlrededorDelSol(planeta, otroPlaneta, tercerPlaneta) {
         return areaTotal==sumaAreaParciales;
 }
 
+function estanAlineadosEntreSi(planeta, otroPlaneta, tercerPlaneta) {
+    return tienenMismaCoordenaX(planeta,otroPlaneta,tercerPlaneta) || tienenMismaCoordenaY(planeta,otroPlaneta,tercerPlaneta);
+}
+
 module.exports = {
 
     existePeriodoDeSequia : function (primerPlaneta, segundoPlaneta, tercerPlaneta) {
@@ -98,7 +109,7 @@ module.exports = {
 
     },
     existenLluvias: function (planeta, otroPlaneta, tercerPlaneta) {
-        return existeTrianguloAlrededorDelSol(planeta, otroPlaneta, tercerPlaneta);
+        return existeTrianguloAlrededorDelSol(planeta, otroPlaneta, tercerPlaneta) && !estanAlineadosEntreSi(planeta, otroPlaneta, tercerPlaneta);
     }
 
 

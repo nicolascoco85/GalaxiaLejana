@@ -15,11 +15,12 @@ Galaxia.set("Betasoides",Betasoides);
 
 
 for (let dia=1; dia<=3600; dia++ ) {
+    console.log("dia:",dia);
     for (var planeta of Galaxia.values()) {
-        console.log("dia:",dia);
         planeta.calcularPosicion(dia);
-        console.log("X:", planeta.obtenerPosicionX(), "//", "Y:", planeta.obtenerPosicionY(), "//W", planeta.obtenerAngulo().toString()+"°Grados");
+        console.log("X:", planeta.obtenerPosicionX(), "-", "Y:", planeta.obtenerPosicionY(), "- W", planeta.obtenerAngulo().toString()+"°Grados");
     }
     console.log("Hay sequia:",service.existePeriodoDeSequia(Galaxia.get("Ferengi"),Galaxia.get("Vulcanos"),Galaxia.get("Betasoides")));
-    console.log("Hay condiciones Optimas:",service.existenCondicionesOptimasDePresionYTemperatura(Galaxia.get("Ferengi"),Galaxia.get("Vulcanos"),Galaxia.get("Betasoides")));
+    console.log("Hay Lluvia:",service.existenLluvias(Galaxia.get("Ferengi"),Galaxia.get("Vulcanos"),Galaxia.get("Betasoides")));
+    console.log("Hay ConYTe:",service.existenCondicionesOptimasDePresionYTemperatura(Galaxia.get("Ferengi"),Galaxia.get("Vulcanos"),Galaxia.get("Betasoides")));
 }
