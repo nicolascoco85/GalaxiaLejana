@@ -1,7 +1,6 @@
 # GalaxiaLejana
 Rotacion de panetas y periodos // Vulcanos-Ferengis-Betasoides
 
-GalaxiaLejana-api-test
 
 Galaxia Lejana api challenge by Nicolas Alberto Coco
 
