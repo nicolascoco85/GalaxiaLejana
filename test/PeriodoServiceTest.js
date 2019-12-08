@@ -346,6 +346,32 @@ describe('Determinacion del Periodo en la Galaxia Lejana', function() {
             assert.isTrue(Service.existenLluvias(planeta,otroPlaneta,tercerPlaneta));
         });
 
+        it('3 planetas: forman un triangulo pasando por el sol , returna que existe Luvia', function () {
+
+            //Setup
+            let {planeta, otroPlaneta, tercerPlaneta} = setUpPlanetas();
+
+            //Posicionamiento dado
+            planeta.definirPosicion(1,1);
+            otroPlaneta.definirPosicion(1,-1);
+            tercerPlaneta.definirPosicion(-2,1);
+
+            assert.isTrue(Service.existenLluvias(planeta,otroPlaneta,tercerPlaneta));
+        });
+
+        it('3 planetas: forman un triangulo pasando por el sol , returna el perimetro formado', function () {
+
+            //Setup
+            let {planeta, otroPlaneta, tercerPlaneta} = setUpPlanetas();
+
+            //Posicionamiento dado
+            planeta.definirPosicion(1,0);
+            otroPlaneta.definirPosicion(-1,0);
+            tercerPlaneta.definirPosicion(0,2);
+
+            assert.equal(Service.obtenerIntensidadDeLluvias(planeta,otroPlaneta,tercerPlaneta),6.48);
+        });
+
 
    });
 });

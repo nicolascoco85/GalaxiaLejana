@@ -96,6 +96,26 @@ function estanAlineadosEntreSi(planeta, otroPlaneta, tercerPlaneta) {
     return tienenMismaCoordenaX(planeta,otroPlaneta,tercerPlaneta) || tienenMismaCoordenaY(planeta,otroPlaneta,tercerPlaneta);
 }
 
+function obtenerDistanciaEntrePlanetas(p1,p2){
+    let x1= p1.obtenerPosicionX();
+    let y1= p1.obtenerPosicionY();
+    let x2= p2.obtenerPosicionX();
+    let y2= p2.obtenerPosicionY();
+
+    let result =Math.round((Math.sqrt(Math.pow((x1-x2),2)+Math.pow((y1-y2),2)))*100)/100;
+
+    return result;
+
+}
+
+function obtenerPerimetro (p1,p2,p3){
+    let ladoP1P2= obtenerDistanciaEntrePlanetas(p1,p2);
+    let ladoP2P3= obtenerDistanciaEntrePlanetas(p2,p3);
+    let ladoP3P1= obtenerDistanciaEntrePlanetas(p3,p1);
+
+    return ladoP1P2 + ladoP2P3 +ladoP3P1;
+}
+
 module.exports = {
 
     existePeriodoDeSequia : function (primerPlaneta, segundoPlaneta, tercerPlaneta) {
@@ -110,6 +130,13 @@ module.exports = {
     },
     existenLluvias: function (planeta, otroPlaneta, tercerPlaneta) {
         return existeTrianguloAlrededorDelSol(planeta, otroPlaneta, tercerPlaneta) && !estanAlineadosEntreSi(planeta, otroPlaneta, tercerPlaneta);
+    },
+    obtenerIntensidadDeLluvias: function (planeta, otroPlaneta, tercerPlaneta) {
+
+        if ( existeTrianguloAlrededorDelSol(planeta, otroPlaneta, tercerPlaneta) && !estanAlineadosEntreSi(planeta, otroPlaneta, tercerPlaneta)){
+            return obtenerPerimetro(planeta, otroPlaneta, tercerPlaneta);
+        }
+        return 0;
     }
 
 
