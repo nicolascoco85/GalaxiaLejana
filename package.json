@@ -4,7 +4,7 @@
   "scripts": {
     "test": "mocha --recursive",
     "start": "node  reporte.js",
-    "run": "node routes/clima.js"
+    "run": "node ./routes/clima.js"
   },
   "dependencies": {
     "async": "^3.1.0",

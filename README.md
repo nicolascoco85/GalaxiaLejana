@@ -6,33 +6,43 @@ Galaxia Lejana api challenge by Nicolas Alberto Coco
 
 Luego de clonar el repositorio, ejecutar:
 
+`Instalacion de Dependencias:`
 ```
 $ npm i
 ```
-
-### Ejecucion
-
-Obtencion de la prediccion
+`Inicio de la API:`
 
 ```
-$ npm start
+npm run-script run
 ```
 
-Resultado:
+###Interfaces
+
+Operacion: GET
+
+### Obtencion de la prediccion
+
+**/reporte**
+
+`Resultado esperado:`
+```
+"Cantidad_de_Periodos_de_sequia":41
+"Cantidad_de_Periodos_de_lluvia":720
+"Pico_Maximo_Lluvia":"6262.31"
+"Pico_Maximo_Dia":108
+"Cantidad_de_Periodos_de_cndiciones_optimas_de_presion_y_temperatura":20
 
 ```
-Reporte para los próximos 10 años: 
-Cantidad de Periodos de sequia: 41
-Cantidad de Periodos de lluvia: 720 Pico Maximo: 6262.31 Dia: 108
-Cantidad de Periodos de condiciones optimas de presion y temperatura: 20
+**/clima?dia=:dia**
+
+`Resultado esperado:`
 
 ```
-
-
+"dia":"108"
+"clima":"Lluvia"
+```
 
 ## Ejecucion de pruebas
-
-
 
 ```
 npm test
@@ -41,10 +51,6 @@ npm test
 ### Resultados Esperados
 
 ```
-
-> GalaxiaLejana@1.0.0 test /home/nico/WebstormProjects/GalaxiaLejana
-> mocha --recursive
-
   Determinacion del Periodo en la Galaxia Lejana
     Alineacion de planetas
       ✓ 3 planetas  con su posicion de original ,  devuelve que  existe sequia 
