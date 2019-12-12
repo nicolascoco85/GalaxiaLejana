@@ -2,6 +2,64 @@
 
 Galaxia Lejana api challenge by Nicolas Alberto Coco
 
+##Enunciado
+
+En una galaxia lejana, existen tres civilizaciones. Vulcanos, Ferengis y Betasoides. Cada civilización vive en paz en su respectivo planeta.
+
+Dominan la predicción del clima mediante un complejo sistema informático. A continuación el diagrama del sistema solar.
+
+Premisas:
+
+    El planeta Ferengi se desplaza con una velocidad angular de 1 grados/día en sentido horario. Su distancia con respecto al sol es de 500Km.
+    El planeta Betasoide se desplaza con una velocidad angular de 3 grados/día en sentido horario. Su distancia con respecto al sol es de 2000Km.
+    El planeta Vulcano se desplaza con una velocidad angular de 5 grados/día en sentido anti­horario, su distancia con respecto al sol es de 1000Km.
+    Todas las órbitas son circulares. Cuando los tres planetas están alineados entre sí y a su vez alineados con respecto al sol, el sistema solar experimenta un período de sequía.
+
+Cuando los tres planetas no están alineados, forman entre sí un triángulo. Es sabido que en el momento en el que el sol se encuentra dentro del triángulo, el sistema solar experimenta un período de lluvia, teniendo éste, un pico de intensidad cuando el perímetro del triángulo está en su máximo.
+
+Las condiciones óptimas de presión y temperatura se dan cuando los tres planetas están alineados entre sí pero no están alineados con el sol.
+
+Realizar un programa informático para poder predecir en los próximos 10 años:
+
+    ¿Cuántos períodos de sequía habrá?
+    ¿Cuántos períodos de lluvia habrá y qué día será el pico máximo de lluvia?
+    ¿Cuántos períodos de condiciones óptimas de presión y temperatura habrá?
+
+Bonus:
+
+Para poder utilizar el sistema como un servicio a las otras civilizaciones, los Vulcanos requieren tener una base de datos con las condiciones meteorológicas de todos los días y brindar una API REST de consulta sobre las condiciones de un día en particular.
+
+    Generar un modelo de datos con las condiciones de todos los días hasta 10 años en adelante utilizando un job para calcularlas.
+    Generar una API REST la cual devuelve en formato JSON la condición climática del día consultado.
+    Hostear el modelo de datos y la API REST en un cloud computing libre (como APP Engine o Cloudfoudry) y enviar la URL para consulta:
+
+Ej: GET → http://....../clima?dia=566 → Respuesta: {“dia”:566, “clima”:”lluvia”}
+
+## Hipotesis y Supuestos
+
+* Los tres planetas parten del positivo de X considerado como el angulo a 0 Grados.
+* Para los 3 planetas los dias tienen la misma duracion, Un dia en el planeta Vulcano dura lo mismo que un dia en Ferengis.
+* Las orbitas de los planetas son circunferencias de radio fijo.
+* En ningun momento cambian de orbita.
+* Se considera que el Sol se ubica en el origen de coordenadas 0,0.
+* Ningun planeta puede ubicarse en la posicion de sol.
+* El modelo de sistema solar considera a todos los astros participantes como puntos sin masa.
+* Los movimientos de cada uno de los astros son independientes del resto.
+* Se considera anti-horario en el sentido contrario a la agujas del reloj.
+* Se considera que un 1 año = 360 días.
+* Consideramos que a parte de los 3 periodos descriptos en el enunciado, existe un cuarto, que llamamos "Normal" que se trata de todo aquel periodo que no cummple con ninguna de las condiciones de establecidas en los otros tres periodos.
+* Los periodos se evaluan diariamente en nuestro sistema solar.
+* En el caso que los planetas forman un triangulo, consideramos que el Sol se encuentra adentro, para el caso donde el Sol pertenezca a uno de los lados que conforma el triangulo, dado que, un punto es parte de la recta que lo contiene por definicion.
+
+##Requisitos y caracteristicas de la aplicacion
+
+Es una aplicacion en NodeJS, Express, MongoDB, Moongose, Chai, Mocha.
+
+Esta apliacion requiere que tengas instalado MongoDB localmente
+* [MongoDB](https://www.mongodb.com/cloud/atlas/signup) 
+
+
+
 ## Comenzando
 
 Luego de clonar el repositorio, ejecutar:
@@ -30,7 +88,7 @@ Operacion: GET
 "Cantidad_de_Periodos_de_lluvia":720
 "Pico_Maximo_Lluvia":"6262.31"
 "Pico_Maximo_Dia":108
-"Cantidad_de_Periodos_de_cndiciones_optimas_de_presion_y_temperatura":20
+"Cantidad_de_Periodos_de_condiciones_optimas_de_presion_y_temperatura":20
 
 ```
 **/clima?dia=:dia**
@@ -48,7 +106,7 @@ Operacion: GET
 npm test
 ```
 
-### Resultados Esperados
+`Resultados esperados:`
 
 ```
   Determinacion del Periodo en la Galaxia Lejana
