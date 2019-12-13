@@ -1,6 +1,7 @@
 const Planeta = require('../Planeta');
 const service = require('../Service/PeriodoService');
-const Prediccion = require('../Model/prediccion').Prediccion;
+const Prediccion = require('../Model/schemas/prediccion');
+const Reporte = require('../Model/schemas/reporte');
 
 
 let Ferengi = new Planeta (500,-1);//Horario
@@ -34,84 +35,90 @@ function obtenerClima(diaPedido) {
 
 }
 
-function obtenerReporte(){
+async function generarReporteDePredicciones() {
 
     let Galaxia = new Map();
     Galaxia.set("Ferengi", Ferengi);
     Galaxia.set("Vulcanos", Vulcanos);
-    Galaxia.set("Betasoides",Betasoides);
+    Galaxia.set("Betasoides", Betasoides);
 
-    let cantPeriodosSequia=0;
+    let cantPeriodosSequia = 0;
     let cantPeriodosLluvia = 0;
-    let maxPeriodosLluvia=0;
-    let diaDeMaxLluvia=0;
-    let cantPeriodosCondicionesOptimas=0;
+    let maxPeriodosLluvia = 0;
+    let diaDeMaxLluvia = 0;
+    let cantPeriodosCondicionesOptimas = 0;
 
 
+    for (let dia = 0; dia <= 3600; dia++) {
 
-    for (let dia=0; dia<=3600; dia++ ) {
-        //console.log("dia:",dia);
         for (var planeta of Galaxia.values()) {
             planeta.calcularPosicion(dia);
-            // console.log("X:", planeta.obtenerPosicionX(), "|", "Y:", planeta.obtenerPosicionY(), "| W", planeta.obtenerAngulo().toString()+"°Grados");
         }
-        if (service.existePeriodoDeSequia(Galaxia.get("Ferengi"),Galaxia.get("Vulcanos"),Galaxia.get("Betasoides"))){cantPeriodosSequia= cantPeriodosSequia+1}
-        else{
-            if (service.existenLluvias(Galaxia.get("Ferengi"),Galaxia.get("Vulcanos"),Galaxia.get("Betasoides")))
-            {
-                cantPeriodosLluvia=cantPeriodosLluvia+1
-                let intensidadDiaria=service.obtenerIntensidadDeLluvias(Galaxia.get("Ferengi"),Galaxia.get("Vulcanos"),Galaxia.get("Betasoides"));
-                if (maxPeriodosLluvia < intensidadDiaria){
-                    maxPeriodosLluvia= intensidadDiaria;
-                    diaDeMaxLluvia=dia;
+
+        try {
+            prediccion = new Prediccion({dia: dia, clima: obtenerClima(dia)});
+            await prediccion.save();
+        } catch (e) {
+            console.error(e);
+            return;
+        }
+
+
+        if (service.existePeriodoDeSequia(Galaxia.get("Ferengi"), Galaxia.get("Vulcanos"), Galaxia.get("Betasoides"))) {
+            cantPeriodosSequia = cantPeriodosSequia + 1
+        } else {
+            if (service.existenLluvias(Galaxia.get("Ferengi"), Galaxia.get("Vulcanos"), Galaxia.get("Betasoides"))) {
+                cantPeriodosLluvia = cantPeriodosLluvia + 1
+                let intensidadDiaria = service.obtenerIntensidadDeLluvias(Galaxia.get("Ferengi"), Galaxia.get("Vulcanos"), Galaxia.get("Betasoides"));
+                if (maxPeriodosLluvia < intensidadDiaria) {
+                    maxPeriodosLluvia = intensidadDiaria;
+                    diaDeMaxLluvia = dia;
                 }
             }
         }
-        if (service.existenCondicionesOptimasDePresionYTemperatura(Galaxia.get("Ferengi"),Galaxia.get("Vulcanos"),Galaxia.get("Betasoides"))){cantPeriodosCondicionesOptimas=cantPeriodosCondicionesOptimas+1}
+        if (service.existenCondicionesOptimasDePresionYTemperatura(Galaxia.get("Ferengi"), Galaxia.get("Vulcanos"), Galaxia.get("Betasoides"))) {
+            cantPeriodosCondicionesOptimas = cantPeriodosCondicionesOptimas + 1
+        }
     }
-
-    let reporte= {
-        Cantidad_de_Periodos_de_sequia: cantPeriodosSequia,
-        Cantidad_de_Periodos_de_lluvia: cantPeriodosLluvia, Pico_Maximo_Lluvia: maxPeriodosLluvia.toFixed(2), Pico_Maximo_Dia: diaDeMaxLluvia,
-        Cantidad_de_Periodos_de_cndiciones_optimas_de_presion_y_temperatura: cantPeriodosCondicionesOptimas
-    }
-     return reporte;
-}
-
- function cargarReportes(prediccion) {
 
     try {
-        for (let dia=1; dia<=3600; dia++ ) {
 
-            prediccion = new Prediccion({ dia: dia, clima: obtenerClima(dia)});
+        reporte = new Reporte({
+            cantidadDeDiasSequia: cantPeriodosSequia,
+            cantidadDeDiasLluvia: cantPeriodosLluvia,
+            picoMaximoLluvia: maxPeriodosLluvia.toFixed(2),
+            picoMaximoLluviaDia: diaDeMaxLluvia,
+            cantidadDeDiasCondicionesOptimas: cantPeriodosCondicionesOptimas
+        });
 
-             prediccion.save();
-            console.log(prediccion);
-        }
-    }catch(e){
-        console.log("Error al persistir");
+        await reporte.save();
+
+    } catch (e) {
+        console.error(e);
+        return;
     }
-    return prediccion;
-
 }
 
-function consultarDia(dia){
 
-    return Prediccion.collection.toJSON();
+
+async function consultarDia(dia){
+
+    return await Prediccion.find({dia:dia},"-_id -__v");
+}
+
+async function obtenerReporte(){
+    return await Reporte.find({},"-_id -__v").limit(1);
 }
 
 module.exports = {
-    obtenerClima : function (dia) {
-
-       // return {dia: dia, clima: obtenerClima(dia)}
-        return consultarDia(dia);
+    obtenerClima : async function (dia) {
+        return await consultarDia(dia);
     },
 
-    obtenerReporte: function () {
-
-        return obtenerReporte();
+    obtenerReporte: async function () {
+        return await obtenerReporte();
     },
-    cargarReportes : function (Prediccion) {
-        cargarReportes();
+    generarReporteDePredicciones : async function () {
+        await generarReporteDePredicciones();
     }
 }

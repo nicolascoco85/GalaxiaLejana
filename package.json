@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "scripts": {
     "test": "mocha --recursive",
-    "start": "node  reporte.js",
-    "run": "node ./routes/clima.js"
+    "start": "node ./routes/server.js",
+    "generarReporte": "node ./jobs/generarReportesPredicciones.js"
   },
   "dependencies": {
     "async": "^3.1.0",

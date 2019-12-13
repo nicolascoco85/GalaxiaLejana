@@ -9,7 +9,4 @@ var PrediccionSchema = new Schema(
     }
 );
 
-
-var Prediccion = mongoose.model('Prediccion', PrediccionSchema);
-
-module.exports.Prediccion = Prediccion;
+module.exports =  mongoose.model('Prediccion', PrediccionSchema);
