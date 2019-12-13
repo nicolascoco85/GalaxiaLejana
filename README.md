@@ -2,7 +2,7 @@
 
 Galaxia Lejana api challenge by Nicolas Alberto Coco
 
-##Enunciado
+## Enunciado
 
 En una galaxia lejana, existen tres civilizaciones. Vulcanos, Ferengis y Betasoides. Cada civilización vive en paz en su respectivo planeta.
 
@@ -51,7 +51,7 @@ Ej: GET → http://....../clima?dia=566 → Respuesta: {“dia”:566, “clima�
 * Los periodos se evaluan diariamente en nuestro sistema solar.
 * En el caso que los planetas forman un triangulo, consideramos que el Sol se encuentra adentro, para el caso donde el Sol pertenezca a uno de los lados que conforma el triangulo, dado que, un punto es parte de la recta que lo contiene por definicion.
 
-##Requisitos y caracteristicas de la aplicacion
+## Requisitos y caracteristicas de la aplicacion
 
 Es una aplicacion en NodeJS, Express, MongoDB, Moongose, Chai, Mocha.
 
