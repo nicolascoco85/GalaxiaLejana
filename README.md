@@ -51,11 +51,20 @@ Ej: GET → http://....../clima?dia=566 → Respuesta: {“dia”:566, “clima�
 * Los periodos se evaluan diariamente en nuestro sistema solar.
 * En el caso que los planetas forman un triangulo, consideramos que el Sol se encuentra adentro, para el caso donde el Sol pertenezca a uno de los lados que conforma el triangulo, dado que, un punto es parte de la recta que lo contiene por definicion.
 
-## Requisitos y caracteristicas de la aplicacion
+## Caracteristicas de la aplicacion
 
 Es una aplicacion en NodeJS, Express, MongoDB, Moongose, Chai, Mocha.
+La misma se encuentra deployada en HEROKU la siguiente direccion:
 
-Esta apliacion requiere que tengas instalado MongoDB localmente
+https://galaxia-lejana.herokuapp.com/
+
+* Nota: Debido a que la aplicacion se encuentra alojada gratuitamente en HEROKU, el primer request demora un tiempo extra debido a que el free Dynos tiene que "despertarse".
+
+## Requisitos
+
+Esta apliacion requiere que tengas instalado localmente
+
+* [NodeJS](https://nodejs.org/es/) 
 * [MongoDB](https://www.mongodb.com/cloud/atlas/signup) 
 
 
