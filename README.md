@@ -37,13 +37,13 @@ Ej: GET → http://....../clima?dia=566 → Respuesta: {“dia”:566, “clima�
 
 ## Hipotesis y Supuestos
 
-* Los tres planetas parten del positivo de X considerado como el angulo a 0 Grados.
-* Para los 3 planetas los dias tienen la misma duracion, Un dia en el planeta Vulcano dura lo mismo que un dia en Ferengis.
+* Los tres planetas parten del eje positivo de X con distintos radios y un angulo 0 Grados.
+* Para los 3 planetas los dias tienen la misma duracion, es decir, un dia en el planeta Vulcano dura lo mismo que un dia en Ferengis o en Betasoide.
 * Las orbitas de los planetas son circunferencias de radio fijo.
 * En ningun momento cambian de orbita.
 * Se considera que el Sol se ubica en el origen de coordenadas 0,0.
 * Ningun planeta puede ubicarse en la posicion de sol.
-* El modelo de sistema solar considera a todos los astros participantes como puntos sin masa.
+* El modelo de sistema solar considera a todos los astros participantes son puntos sin masa.
 * Los movimientos de cada uno de los astros son independientes del resto.
 * Se considera anti-horario en el sentido contrario a la agujas del reloj.
 * Se considera que un 1 año = 360 días.
@@ -88,7 +88,7 @@ Operacion: GET
 "Cantidad_de_Periodos_de_lluvia":720
 "Pico_Maximo_Lluvia":"6262.31"
 "Pico_Maximo_Dia":108
-"Cantidad_de_Periodos_de_condiciones_optimas_de_presion_y_temperatura":20
+"Cantidad_de_Periodos_de_condiciones_optimas_de_presion_y_temperatura":0
 
 ```
 **/clima?dia=:dia**
