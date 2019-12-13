@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-var bodyParser = require('body-parser');
+const bodyParser = require('body-parser');
 const service = require('../Service/ReporteService');
 const DB = require('../Model/baseDeDatos');
 
@@ -15,11 +15,13 @@ app.get('/', (request, response) => {
 });
 
 app.get('/clima', async (request, response) => {
-    let dia = 0;
-    if (request.query) {
-        dia = request.query.dia;
+    if (service.esDiaValido(request)){
+        response.json(await service.obtenerClima(request.query.dia));
+    } else {
+        response.status(400).send({
+            message:'El dia ingresado es invalido'
+        });
     }
-    response.json(await service.obtenerClima(dia));
 });
 
 app.get('/reporte', async (request, response) => {

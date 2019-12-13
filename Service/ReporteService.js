@@ -7,7 +7,7 @@ const Reporte = require('../Model/schemas/reporte');
 let Ferengi = new Planeta(500, -1); //Horario
 let Vulcanos = new Planeta(1000, 5); //AntiHorario
 let Betasoides = new Planeta(2000, -3); //Horario
-
+const CANTIDAD_DIAS_EN_DIEZ_ANIOS = 3600;
 
 function obtenerClima(diaPedido) {
 
@@ -49,7 +49,7 @@ async function generarReporteDePredicciones() {
     let cantPeriodosCondicionesOptimas = 0;
 
 
-    for (let dia = 0; dia <= 3600; dia++) {
+    for (let dia = 0; dia <= CANTIDAD_DIAS_EN_DIEZ_ANIOS; dia++) {
 
         for (var planeta of Galaxia.values()) {
             planeta.calcularPosicion(dia);
@@ -102,7 +102,22 @@ async function generarReporteDePredicciones() {
     }
 }
 
+function isInt(value) {
+    return !isNaN(value) && (function(x) { return (x | 0) === x; })(parseFloat(value));
+}
 
+function esNumeroPositivo(value){
+    return  !!(isInt(value) && value >= 0);
+}
+
+function esDiaValido(request){
+    if (request.query && request.query.dia) {
+        if( esNumeroPositivo(request.query.dia)){
+            return request.query.dia <=CANTIDAD_DIAS_EN_DIEZ_ANIOS;
+        }
+    }
+    return false;
+}
 
 async function consultarDia(dia) {
 
@@ -125,5 +140,8 @@ module.exports = {
     },
     generarReporteDePredicciones: async function() {
         await generarReporteDePredicciones();
+    },
+    esDiaValido : function (request) {
+        return esDiaValido(request);
     }
 }
