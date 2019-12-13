@@ -54,11 +54,11 @@ Ej: GET → http://....../clima?dia=566 → Respuesta: {“dia”:566, “clima�
 ## Caracteristicas de la aplicacion
 
 Es una aplicacion en NodeJS, Express, MongoDB, Moongose, Chai, Mocha.
-La misma se encuentra deployada en HEROKU la siguiente direccion:
+La misma se encuentra deployada en HEROKU en la siguiente direccion:
 
 https://galaxia-lejana.herokuapp.com/
 
-* Nota: Debido a que la aplicacion se encuentra alojada gratuitamente en HEROKU, el primer request demora un tiempo extra debido a que el free Dynos tiene que "despertarse".
+* Nota: Debido a que la aplicacion se encuentra alojada gratuitamente en HEROKU, el primer request demora un tiempo extra debido a que el free Dyno tiene que "despertarse".
 
 ## Requisitos
 
