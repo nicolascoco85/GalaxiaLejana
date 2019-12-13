@@ -1,7 +1,7 @@
 var config = {
-    MONGODB_URI : process.env.MONGODB_URI ? process.env.MONGODB_URI : "mongodb://localhost/test",
+    MONGODB_URI: process.env.MONGODB_URI ? process.env.MONGODB_URI : "mongodb://localhost/test",
     MONGODB_CONFIG: {
-    useNewUrlParser: true,
+        useNewUrlParser: true,
         useUnifiedTopology: true
     }
 };

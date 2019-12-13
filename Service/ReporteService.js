@@ -1,12 +1,12 @@
-const Planeta = require('../Planeta');
+const Planeta = require('../Model/Planeta');
 const service = require('../Service/PeriodoService');
 const Prediccion = require('../Model/schemas/prediccion');
 const Reporte = require('../Model/schemas/reporte');
 
 
-let Ferengi = new Planeta (500,-1);//Horario
-let Vulcanos = new Planeta(1000,5);//AntiHorario
-let Betasoides =  new Planeta (2000,-3);//Horario
+let Ferengi = new Planeta(500, -1); //Horario
+let Vulcanos = new Planeta(1000, 5); //AntiHorario
+let Betasoides = new Planeta(2000, -3); //Horario
 
 
 function obtenerClima(diaPedido) {
@@ -19,19 +19,19 @@ function obtenerClima(diaPedido) {
     let Galaxia = new Map();
     Galaxia.set("Ferengi", Ferengi);
     Galaxia.set("Vulcanos", Vulcanos);
-    Galaxia.set("Betasoides",Betasoides);
+    Galaxia.set("Betasoides", Betasoides);
 
 
-        if (service.existePeriodoDeSequia(Galaxia.get("Ferengi"), Galaxia.get("Vulcanos"), Galaxia.get("Betasoides")))
-            return "Sequia";
+    if (service.existePeriodoDeSequia(Galaxia.get("Ferengi"), Galaxia.get("Vulcanos"), Galaxia.get("Betasoides")))
+        return "Sequia";
 
-        if (service.existenLluvias(Galaxia.get("Ferengi"), Galaxia.get("Vulcanos"), Galaxia.get("Betasoides")))
-            return "Lluvia";
+    if (service.existenLluvias(Galaxia.get("Ferengi"), Galaxia.get("Vulcanos"), Galaxia.get("Betasoides")))
+        return "Lluvia";
 
-        if (service.existenCondicionesOptimasDePresionYTemperatura(Galaxia.get("Ferengi"), Galaxia.get("Vulcanos"), Galaxia.get("Betasoides")))
-            return "CondicionesOptimas";
+    if (service.existenCondicionesOptimasDePresionYTemperatura(Galaxia.get("Ferengi"), Galaxia.get("Vulcanos"), Galaxia.get("Betasoides")))
+        return "CondicionesOptimas";
 
-        return "Normal";
+    return "Normal";
 
 }
 
@@ -56,7 +56,10 @@ async function generarReporteDePredicciones() {
         }
 
         try {
-            prediccion = new Prediccion({dia: dia, clima: obtenerClima(dia)});
+            prediccion = new Prediccion({
+                dia: dia,
+                clima: obtenerClima(dia)
+            });
             await prediccion.save();
         } catch (e) {
             console.error(e);
@@ -101,24 +104,26 @@ async function generarReporteDePredicciones() {
 
 
 
-async function consultarDia(dia){
+async function consultarDia(dia) {
 
-    return await Prediccion.find({dia:dia},"-_id -__v");
+    return await Prediccion.find({
+        dia: dia
+    }, "-_id -__v");
 }
 
-async function obtenerReporte(){
-    return await Reporte.find({},"-_id -__v").limit(1);
+async function obtenerReporte() {
+    return await Reporte.find({}, "-_id -__v").limit(1);
 }
 
 module.exports = {
-    obtenerClima : async function (dia) {
+    obtenerClima: async function(dia) {
         return await consultarDia(dia);
     },
 
-    obtenerReporte: async function () {
+    obtenerReporte: async function() {
         return await obtenerReporte();
     },
-    generarReporteDePredicciones : async function () {
+    generarReporteDePredicciones: async function() {
         await generarReporteDePredicciones();
     }
 }

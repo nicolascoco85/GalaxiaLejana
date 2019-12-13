@@ -2,7 +2,7 @@ const service = require('../Service/ReporteService');
 const mongoose = require('mongoose');
 const config = require('../config/config');
 
-async  function run() {
+async function run() {
 
     await mongoose.connect(config.MONGODB_URI, config.MONGODB_CONFIG);
 
@@ -11,7 +11,7 @@ async  function run() {
     await service.generarReporteDePredicciones();
 }
 
-run().then(function (){
+run().then(function() {
     console.log("El reporte ha sido cargado");
     process.exit();
-}).catch(error=>console.error(error));
+}).catch(error => console.error(error));

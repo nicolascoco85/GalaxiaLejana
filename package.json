@@ -14,7 +14,6 @@
     "mongoose": "^5.8.0",
     "q": "^1.5.1",
     "request": "^2.88.0",
-    "body-parser": "latest",
     "body-parser": "latest"
   },
   "devDependencies": {
