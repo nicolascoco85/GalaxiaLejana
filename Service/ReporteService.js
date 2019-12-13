@@ -63,7 +63,7 @@ async function generarReporteDePredicciones() {
             await prediccion.save();
         } catch (e) {
             console.error(e);
-            return;
+            return e;
         }
 
 
@@ -98,7 +98,7 @@ async function generarReporteDePredicciones() {
 
     } catch (e) {
         console.error(e);
-        return;
+        return e;
     }
 }
 
