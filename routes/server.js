@@ -27,8 +27,8 @@ app.get('/clima', async (request, response) => {
 app.get('/reporte', async (request, response) => {
     response.json(await service.obtenerReporte());
 });
-
-app.listen('8080', () => {
-    console.log("Escuchando en localhost:8080");
+const port = process.env.PORT || 8080;
+app.listen(port, () => {
+    console.log("Escuchando en localhost:"+port);
     DB.conectarDB();
 });
