@@ -1,5 +1,7 @@
 const Planeta = require('../Planeta');
-const service = require('../Service/PeriodoService')
+const service = require('../Service/PeriodoService');
+const Prediccion = require('../Model/prediccion').Prediccion;
+
 
 let Ferengi = new Planeta (500,-1);//Horario
 let Vulcanos = new Planeta(1000,5);//AntiHorario
@@ -26,7 +28,7 @@ function obtenerClima(diaPedido) {
             return "Lluvia";
 
         if (service.existenCondicionesOptimasDePresionYTemperatura(Galaxia.get("Ferengi"), Galaxia.get("Vulcanos"), Galaxia.get("Betasoides")))
-            return " Condiociones Optimas de Presion y Temperatura";
+            return "CondicionesOptimas";
 
         return "Normal";
 
@@ -76,14 +78,40 @@ function obtenerReporte(){
      return reporte;
 }
 
+ function cargarReportes(prediccion) {
+
+    try {
+        for (let dia=1; dia<=3600; dia++ ) {
+
+            prediccion = new Prediccion({ dia: dia, clima: obtenerClima(dia)});
+
+             prediccion.save();
+            console.log(prediccion);
+        }
+    }catch(e){
+        console.log("Error al persistir");
+    }
+    return prediccion;
+
+}
+
+function consultarDia(dia){
+
+    return Prediccion.collection.toJSON();
+}
+
 module.exports = {
     obtenerClima : function (dia) {
 
-        return {dia: dia, clima: obtenerClima(dia)}
+       // return {dia: dia, clima: obtenerClima(dia)}
+        return consultarDia(dia);
     },
 
     obtenerReporte: function () {
 
         return obtenerReporte();
+    },
+    cargarReportes : function (Prediccion) {
+        cargarReportes();
     }
 }

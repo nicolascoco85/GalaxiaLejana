@@ -43,20 +43,23 @@ function    estanAlineadoEntreSiSinElSol(PrimerPlaneta, SegundoPlaneta, TercerPl
         let xEnTercerPlaneta= TercerPlaneta.obtenerPosicionX();
         let yEnTercerPlaneta= TercerPlaneta.obtenerPosicionY();
 
-        if (estanSobreUnEjeCartesiano(PrimerPlaneta, SegundoPlaneta, TercerPlaneta)){
-            return false;
+        //Vertical
+        if ((xEnPlaneta==xEnOtroPlaneta)&&(xEnOtroPlaneta==xEnTercerPlaneta)&& xEnTercerPlaneta!=0){
+            return true;
         }
-        // Casos donde existe pendiente o recta horizontal
-        if ((xEnPlaneta-xEnTercerPlaneta)!=0 &&(xEnOtroPlaneta-xEnTercerPlaneta)!=0){
-            let mPlaneta= (yEnPlaneta-yEnTercerPlaneta)/(xEnPlaneta-xEnTercerPlaneta);
-            let mOtroPlaneta= (yEnOtroPlaneta-yEnTercerPlaneta)/(xEnOtroPlaneta-xEnTercerPlaneta);
-            let terminoIndependiente = yEnTercerPlaneta - mOtroPlaneta*xEnTercerPlaneta;
-
-
-                return mPlaneta==mOtroPlaneta && terminoIndependiente!=0 ;
+        //Horizontal
+        if ((yEnPlaneta==yEnOtroPlaneta)&&(yEnOtroPlaneta==yEnTercerPlaneta)&& yEnTercerPlaneta!=0){
+            return true;
         }
-        // Caso para alineados verticalmente sin pasar por el (0.0).
-        return true;
+        let m = (yEnPlaneta-yEnTercerPlaneta)/(xEnPlaneta-xEnTercerPlaneta);
+        let b = m * (-xEnTercerPlaneta)+yEnTercerPlaneta;
+
+        // el segundo planeta pertenece a la recta y no pasa por el origen
+        if ((yEnOtroPlaneta==m*xEnOtroPlaneta+b) && b!=0){
+            return true;
+        }
+
+        return false;
 
 }
 

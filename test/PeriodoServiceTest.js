@@ -23,20 +23,6 @@ describe('Determinacion del Periodo en la Galaxia Lejana', function() {
         });
 
 
-        it('3 planetas en su posicion original son trasladados en una unidad, devuelve que existe sequia', function () {
-
-            //Setup
-            let {planeta, otroPlaneta, tercerPlaneta} = setUpPlanetas();
-
-            //Posicionamiento
-            planeta.definirPosicion(2,0);
-            otroPlaneta.definirPosicion(3,0);
-            tercerPlaneta.definirPosicion(4,0);
-
-            assert.isFalse(Service.existenCondicionesOptimasDePresionYTemperatura(planeta,otroPlaneta,tercerPlaneta));
-            assert.isTrue(Service.existePeriodoDeSequia(planeta,otroPlaneta,tercerPlaneta));
-        });
-
         it('3 planetas sobre el eje de Y,  devuelve que existe sequia', function () {
 
             //Setup
@@ -331,6 +317,20 @@ describe('Determinacion del Periodo en la Galaxia Lejana', function() {
             tercerPlaneta.definirAngulo(270);
 
             assert.isFalse(Service.existenCondicionesOptimasDePresionYTemperatura(planeta,otroPlaneta,tercerPlaneta));
+        });
+
+        it('3 planetas: alineados sin pasar por el sol,  devuelve que existen condciones optimas ', function () {
+
+            //Setup
+            let {planeta, otroPlaneta, tercerPlaneta} = setUpPlanetas();
+
+            //Posicionamiento dado
+            planeta.definirPosicion(1,0);
+            otroPlaneta.definirPosicion(0,-1);
+            tercerPlaneta.definirPosicion(2,1);
+
+
+            assert.isTrue(Service.existenCondicionesOptimasDePresionYTemperatura(planeta,otroPlaneta,tercerPlaneta));
         });
 
         it('3 planetas: forman un triangulo alrededor del sol , returna que existe Luvia', function () {
