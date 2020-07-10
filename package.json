@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "test": "mocha --recursive",
-    "start": "node ./routes/server.js",
+    "start": "nodemon ./routes/server.js",
     "generarReporte": "node ./jobs/generarReportesPredicciones.js"
   },
   "dependencies": {
@@ -18,6 +18,7 @@
   },
   "devDependencies": {
     "chai": "^4.2.0",
-    "mocha": "^6.2.2"
+    "mocha": "^6.2.2",
+    "nodemon": "^2.0.4"
   }
 }

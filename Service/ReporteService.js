@@ -121,9 +121,10 @@ function esDiaValido(request){
 
 async function consultarDia(dia) {
 
-    return await Prediccion.find({
+  return await Prediccion.find({
         dia: dia
     }, "-_id -__v");
+
 }
 
 async function obtenerReporte() {
